@@ -66,26 +66,24 @@
         var colorBox = document.getElementById(colorPickerNum === 1 ? "primary-color" : "secondary-color");
         colorBox.style.backgroundColor = colorInput;
         // Add query string to URL
-        var queryString = "?" + (colorPickerNum === 1 ? "primaryColor" : "secondaryColor") + "=" + encodeURIComponent(colorInput);
-        history.pushState(null, null, queryString);
+        var params = new URLSearchParams(window.location.search);
+        params.set(colorPickerNum === 1 ? "primaryColor" : "secondaryColor", colorInput);
+        history.pushState(null, null, "?" + params.toString());
       }
 
       // Retrieve saved colors from query string in URL
-      var queryString = window.location.search;
-      if (queryString) {
-        var params = new URLSearchParams(queryString);
-        var savedPrimaryColor = params.get("primaryColor");
-        if (savedPrimaryColor) {
-          var primaryColorBox = document.getElementById("primary-color");
-          primaryColorBox.style.backgroundColor = savedPrimaryColor;
-          document.getElementById("color-input1").value = savedPrimaryColor;
-        }
-        var savedSecondaryColor = params.get("secondaryColor");
-        if (savedSecondaryColor) {
-          var secondaryColorBox = document.getElementById("secondary-color");
-          secondaryColorBox.style.backgroundColor = savedSecondaryColor;
-          document.getElementById("color-input2").value = savedSecondaryColor;
-        }
+      var params = new URLSearchParams(window.location.search);
+      var savedPrimaryColor = params.get("primaryColor");
+      if (savedPrimaryColor) {
+        var primaryColorBox = document.getElementById("primary-color");
+        primaryColorBox.style.backgroundColor = savedPrimaryColor;
+        document.getElementById("color-input1").value = savedPrimaryColor;
+      }
+      var savedSecondaryColor = params.get("secondaryColor");
+      if (savedSecondaryColor) {
+        var secondaryColorBox = document.getElementById("secondary-color");
+        secondaryColorBox.style.backgroundColor = savedSecondaryColor;
+        document.getElementById("color-input2").value = savedSecondaryColor;
       }
     </script>
- 
+  </body>
